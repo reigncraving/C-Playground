@@ -4,7 +4,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/helloworld",
+            "program": "${workspaceFolder}/helloworld/helloworld",
             "args": [],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",
