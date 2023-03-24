@@ -5,17 +5,44 @@ example C programms.
 
 ## Language specifics
 
+C provides 3 storage classes:
+
+- auto - 
+- register
+- extern
+- static
+
 - `External variables` - Functions in different files can communicate through
 them => extension of the concept for `global variables`. `External Variables` can
 be changed by a function in separate file => a globally defined variable from
-another file. Prefixed with `extern` 
+another file. Prefixed with `extern`. To use it must be declared as signature, must
+not be initialized. Variable needs to be global to be used as extern.
+
+  <file1 int n = 3> <== <file2 ext int n;>
+
+Functions declared as `extern` can be accessed in any file in program, and it
+does not need to be defined (since it's defined in eternal file) in the header 
+of the file caller.
 
 - `Static variables` - When a variable needs to be defined as global but not
 external ( not available outside of the file). The static declaration more 
 accurately reflects the viarble usage (no conflicts). Prefixed with `static`.
 
+- `Auto variable` - exist only in block they are created, destroyed on scope change.
+Keyworld is not used, also conflicts with C++. 
+
+- `Local variables` -exist in functions bodies or block code. All variables of this
+type have `automatic` storage by default, word auto is not used explicitly. No access 
+from another functions => local scope.
+
+placeholders
+
+`%lf` => long precision floating-point value (double)
+`%f`  => single precision floating-point value (float)
+`%i`  => (interger) 
 
 ## Compile
+
 Compiler generates intermediate object files for each source it compiles. 
 (file.o for windows file.obj)
 
@@ -45,6 +72,7 @@ gcc compile -c mod1.o mod2.o -o test
 ```
 
 Compile multiple sources:
+
 ```
 gcc <file or files> -o <executable object file>
 ```
