@@ -3,30 +3,67 @@ This repository will hold any projects related to `C Programming language` exerc
 and related environment for compiling and debuging. It will include all 
 example C programms.
 
-## Language specifics
+## C Language specifics
 
 C provides 3 storage classes:
 
-- auto - 
-- register
-- extern
-- static
+1. Auto
+2. Register
+3. Extern
+4. Static
+
+- `Register` is small set of data, taking place that is part of the  CPU
+It can hold instructions, storage address, and any kind of data.
+It is used to define local variables that should be stored in a register,
+instead of RAM. This make the `Register` much faster than normal variables. It 
+is `only` used with local variables.
+
+  Good use of the `Register storage class` is when a variable gets used all the0 
+  time in a program, and this will make it even faster. But this is a 
+  compiler's choice whether to store marked variable, and some time the 
+  compiler puts there variables for optimization automaticaly.
+
+  When added variable scope is local to the block it's defined, the size
+  is equal to the registry size, and you cannot obtain address inside of the
+  `register`, nor have the unary '&' operator applyed to that variable, because 
+  it does not have memory location.
+
+  ```
+  register int x;
+  ```
 
 - `External variables` - Functions in different files can communicate through
 them => extension of the concept for `global variables`. `External Variables` can
-be changed by a function in separate file => a globally defined variable from
-another file. Prefixed with `extern`. To use it must be declared as signature, must
-not be initialized. Variable needs to be global to be used as extern.
+be changed by a function in separate file => /mnt/e/C/C-Playground/project1a 
+globally defined variable from another file. Prefixed with `extern`. To use it
+must be declared as signature, mustnot be initialized. Variable needs to be
+global to be used as extern.
 
-  <file1 int n = 3> <== <file2 ext int n;>
+  ```
+    <file1 int n = 3> <== <file2 extern int n;>
+  ```
 
-Functions declared as `extern` can be accessed in any file in program, and it
-does not need to be defined (since it's defined in eternal file) in the header 
-of the file caller.
+  **file2 is the one accessing it, so the extern is palced there.
+  Functions declared as `extern` can be accessed in any file in program, and it
+  does not need to be defined (since it's defined in eternal file) in the header 
+  of the file caller. Any variable defined outside of block or function is 
+  considered `external` by default.
 
 - `Static variables` - When a variable needs to be defined as global but not
 external ( not available outside of the file). The static declaration more 
 accurately reflects the viarble usage (no conflicts). Prefixed with `static`.
+
+  Applied to `local varibles` => Tells compiler to keep the var during the life
+  time of a program Preserve the state from last execution run, and no new memory
+  will allocated for them on later calls. Scope is local for where they are
+  declared. These variable are alocated on the
+  `heap` not on the `stack`.
+
+  Applied to `global variable` => Variable in scope only for current file.
+
+  Applied to `function` => Same file only execution and call.
+
+  `Static variable` should not be declared in the body of `structures`.
 
 - `Auto variable` - exist only in block they are created, destroyed on scope change.
 Keyworld is not used, also conflicts with C++. 
@@ -35,7 +72,7 @@ Keyworld is not used, also conflicts with C++.
 type have `automatic` storage by default, word auto is not used explicitly. No access 
 from another functions => local scope.
 
-placeholders
+### placeholders
 
 `%lf` => long precision floating-point value (double)
 `%f`  => single precision floating-point value (float)
@@ -45,12 +82,12 @@ placeholders
 
 Compiler generates intermediate object files for each source it compiles. 
 (file.o for windows file.obj)
-
+```
 basic flags: 
 -c => compile do not link
 -o => object file
-
-Replacing the 'c' extension of the 'o' for object file passed to compiler will 
+```
+Replacing the `'c'` extension of the `'o'` for object file passed to compiler will 
 tells it to use the object files instead (already compiled ones).This could be 
 used with compilers that do not delete the object files.
 
@@ -59,7 +96,7 @@ code, but has info that allows a linker to see what symbols are in it as well as
 symbols it requires in order to work. (For reference, "symbols" are basically 
 names of global objects, functions, etc.) 
 
-A linker takes all these object files and combines them to form one executable 
+A `linker` takes all these object files and combines them to form one executable 
 (assuming that it can, i.e.: that there aren't any duplicate or undefined symbols). 
 A lot of compilers will do this for you (they run the linker on their own) 
 if you don't tell them to "just compile" using command-line options. 
