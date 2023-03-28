@@ -3,7 +3,6 @@
 /* Global variable accessed only in this file: */
 static double gd = 3.42;
 float uniFloat = 1.32;
-
 static int func (void) {
     printf("Static function defined");
     return 0;
