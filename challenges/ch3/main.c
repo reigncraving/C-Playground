@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 int counter;
+void display();
 
 int main() {
     while(counter < 5) {

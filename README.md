@@ -78,6 +78,44 @@ from another functions => local scope.
 `%f`  => single precision floating-point value (float)
 `%i`  => (interger) 
 
+## Typedef
+
+Makes the program more readable by defining own name for exising data type. 
+`typedef int Number;`, `typedef int* i_pointer;`
+
+This will make the name Number to be equal to `int` type => Creating an alias. The compiler will treat this as normal integer, this makes the program more readable.
+
+Good example use is to cover the 4-byte system integer, some system use `long` for example and typdef can be changed once in the program based on the system and will update all instances.
+
+The `typedef` is handled by the `compiler`.
+
+common practices:
+- Do not use `typedef` with structs. (only hides `struct` word)
+- Use it for portable types.
+
+typedef vs define
+
+## Define (Preprocessor)
+
+`Define` statement (constants) is a preprocessor directive, ( like all other preprocessor directives ) begins with `#`.
+ - Can be preceded by spaces and tabs.
+ - Allows for space between `#` and following part.
+
+good example is the `#include` preprocessor directive.
+
+`Define` is used to define `symbolic` or `manifest` `constants` in a program.
+- directives run untill the first newline following the `#`.
+- Name consists of only uppercase latters and underscores.
+
+example of defining a constant:
+
+```C
+#define OK 1
+```
+Anywhere in the code the name `OK` will return 1. Preprocessor makes replacement of all calls to the constant. Easy to maintain as one place to change the defined value.
+
+another way of creating constants is by using the keywokd `consts` on variables.
+
 ## Compile
 
 Compiler generates intermediate object files for each source it compiles. 
