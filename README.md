@@ -28,7 +28,7 @@ is `only` used with local variables.
   `register`, nor have the unary '&' operator applyed to that variable, because 
   it does not have memory location.
 
-  ```
+  ```C
   register int x;
   ```
 
@@ -76,14 +76,16 @@ from another functions => local scope.
 
 `%lf` => long precision floating-point value (double)
 `%f`  => single precision floating-point value (float)
-`%i`  => (interger) 
+`%i`  => (interger)
+`%zd` => size_t (unsigned long)
+`%c`  => char
 
 ## Typedef
 
 Makes the program more readable by defining own name for exising data type. 
 `typedef int Number;`, `typedef int* i_pointer;`
 
-This will make the name Number to be equal to `int` type => Creating an alias. The compiler will treat this as normal integer, this makes the program more readable.
+This will make the name Number to be equal to `int` type => Creating an `alias`. The compiler will treat this as normal integer, this makes the program more readable.
 
 Good example use is to cover the 4-byte system integer, some system use `long` for example and typdef can be changed once in the program based on the system and will update all instances.
 
@@ -94,6 +96,9 @@ common practices:
 - Use it for portable types.
 
 typedef vs define
+
+typedef is handle by the compiler and is good for typecheking, but define could replace typedef as well, depends on the case. The precompiler is good for cheking if header already exists before defining a constant. 
+`#define` will replace every instance of the keyword in the file were as `typedef` is more of a alias.
 
 ## Define (Preprocessor)
 
@@ -116,6 +121,37 @@ Anywhere in the code the name `OK` will return 1. Preprocessor makes replacement
 
 another way of creating constants is by using the keywokd `consts` on variables.
 
+## Varible Length Array (VLA)
+
+Array taking expression when created, still fixed in size. It means you can use variable when specifying `array dimentions` when first creating the array.
+
+`size_t` - data type return from `sizeof` operator.
+
+```C
+#include <stdio.h>
+
+int main(void) {
+
+  size_t size = 3;
+  /* not supported in c89 */
+  float arr[size];
+
+
+  return 0;
+}
+
+```
+To use this feature with support `__STDC_NO_VLA__` symbol must be defined as 1
+
+```c
+#ifdef __STDC_NO_VLA__
+  printf("VLA not supporterd");
+  exit(1);
+#endif
+```
+note: Linux cores do not used VLAs ( considered slow and fragile. )
+
+Avoid VLAs as function variables, instead use `pointers` and `allocations`.
 ## Compile
 
 Compiler generates intermediate object files for each source it compiles. 
@@ -161,10 +197,15 @@ gcc -c mod3.c  # compiles mod3.c => mod3.o
 ```
 
 custom script:
+```shell
+./build/compile.h helloworld/helloworld.c
 ```
-./build/helloworld.sh
-```
+with multiple files:
 
+```
+./build/compile.sh project1/sources/project1.c project1/sources/favorite_number.c 
+
+```
 when compiling multiple files the compiler compiles them independently, it does
 not know of each structure, function return types, arguments. There need to be
 a specification for the compiler to use.

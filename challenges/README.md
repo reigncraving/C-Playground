@@ -47,3 +47,15 @@ loop 5 times
 create another file
 - display function is defined here.
     - this function displays the global variable form main.c (incremented by1)
+
+## Challenge#4
+
+Write a program to read elements in an array and find the sum of the array elements. Ask user for input. You must use VLA for the size.
+
+```C
+input elements: 10, 20, 30, 40, 50
+
+OUTPUT
+sum of all elements = 150
+```
+
