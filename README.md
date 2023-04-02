@@ -121,7 +121,7 @@ Anywhere in the code the name `OK` will return 1. Preprocessor makes replacement
 
 another way of creating constants is by using the keywokd `consts` on variables.
 
-## Varible Length Array (VLA)
+## Variable Length Array (VLA)
 
 Array taking expression when created, still fixed in size. It means you can use variable when specifying `array dimentions` when first creating the array.
 
