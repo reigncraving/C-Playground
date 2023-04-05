@@ -274,7 +274,63 @@ struct point p[3] = { [0].x = 3, [2].y = 3 };
 
 ## Type Qualifiers
 
+Type qualifiers are used infront of variable to tell the compiler more about the
+intended use of the variable.
 
+- `const` - variable value won't be change through program life time. The     compiler will place that variable into read-only memory(compiler optimization).
+
+```C
+/* with pointers :*/
+int * const ptr; // constant pointer address cannot change.
+const int *ptr; // value pointed to must remain constant.
+const int * const *ptr; // both constants, pointer + value.
+
+/* passing const as parameter to function: */
+void print(const int array[], int size) {}; // can't change data to which array poinst.
+
+/* adds a copy of the second param to the end of first param */
+char *strcat(char *restict s1, const char * restrict s2); // second param won't be changed it's const.
+
+/* in header files const can get included in differen files.*/
+static const double pi = 3.14159; // with static each file gets copy of the data.
+```
+define vs const. #define is preprocessor directive and it is not scope controlled,
+where const is a as regular variable, it can be typecast, has scope ( function scope, global scope).
+the use of `const` also allow for type checking by the compiler (vs precompiler).
+
+- `volatile` - (compiler optimization) specifies to compiler that this variable will change it's value.
+opposite to `const`. This will optimize the compiler not to cache the value => Not to optimize it.
+Used on embeded systems, or where resources are scarse. Using `volatile` tells the
+compiler not to optimize for the use of `registry` as faster memory (caching).
+
+Three types od variable should use `volatile`:
+ 1. memory-mapped peripheral registers
+ 2. global variables ( non stack )
+ 3. global variables accessed by multiple tasks in multi-threaded app
+
+```C
+volatile int var // var is volatile
+volatile int *ptr // points to volatile address
+
+/* 
+* do not change in program, allow for storage in memory to be 
+* access by other processes.
+*/
+const volatile int *loc 
+```
+- `restrict` - (Compiler optimization) The compiler can choose to ignore it, used
+with pointer, and it tells the compiler that a pointer is the only refence to 
+a certain value. The compiler won't do additional optimization between declaration 
+and usage of said pointer. Not supported in `C++`.
+
+```C
+int * restrict ptr 
+```
+
+`C99` standart adde new ones:
+
+-`constancy`
+-`volatility`
 
 ## Compile
 
