@@ -58,4 +58,17 @@ input elements: 10, 20, 30, 40, 50
 OUTPUT
 sum of all elements = 150
 ```
+## Challenge#5
 
+Write program that uses flexible array member inside structure. 
+
+- Create structure named `myArray` with length member and flexible array member.
+- Read size of the array from user input.
+- Allocate requested by user memory.
+- Set the length member and fill the array with dummy data and print the array.
+
+hint init arraay pointer to null.
+
+## Challenge#6
+
+Complex Numbers calculations.

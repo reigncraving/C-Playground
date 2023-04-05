@@ -100,6 +100,13 @@ typedef vs define
 typedef is handle by the compiler and is good for typecheking, but define could replace typedef as well, depends on the case. The precompiler is good for cheking if header already exists before defining a constant. 
 `#define` will replace every instance of the keyword in the file were as `typedef` is more of a alias.
 
+The advantage of using typedef with pointers is that we can declare any number of pointers in a single statement
+
+```C
+typedef int* int_pointer;
+int_pointer = a, b, c;
+```
+
 ## Define (Preprocessor)
 
 `Define` statement (constants) is a preprocessor directive, ( like all other preprocessor directives ) begins with `#`.
@@ -152,6 +159,123 @@ To use this feature with support `__STDC_NO_VLA__` symbol must be defined as 1
 note: Linux cores do not used VLAs ( considered slow and fragile. )
 
 Avoid VLAs as function variables, instead use `pointers` and `allocations`.
+
+## Flexible Array Members
+
+Feature form `c99` standard, it features a dynamic array dimensions inside of 
+`struct`. Flexible array member's size can be changed at runtime.
+
+example: 
+```C
+struct s {
+  int arraySize;
+  int array[]; // flexible array memeber
+}; 
+
+/*Allocation: */
+  /*...*/
+  int desiredSize = 5;
+  /* structure pointer => structure named s */
+  struct s *ptr; 
+
+  /* 
+  *
+  * allocate size of one struct size for all members and 
+  * desiredSize is allocation for the flexible array member
+  * how many elements will that array hold.
+  */
+  ptr = malloc( sizeof( struct s ) + desiredSize * sizeof ( int ) );
+  /*...*/
+```
+a flexible array is declared by empty square brakets `[]`. Flexible array must be
+declared only as `last member` of the struct, and there must at least one more 
+member ( cannot be only member ). Flexible array cannot be member of another struct.
+Struct with flexible array cannot be statically initialized => allocated dynamically 
+only, cannot fix the size of the array at compile time.
+
+Its debatable whether is good practice or not, someconsider it not portable (c99).
+
+## Complex Number Types
+
+`Complex number` is a number of form: `a + bi`
+- `i` is the square root of minus one;
+- `a` and `b` are real numbers;
+
+`a` is the real part, while `bi` is the imaginary part of the complex number
+
+operations: 
+
+- `modulus` of complex number `a + bi is `√(a^2 + b^2)`;
+- `equality`` a + bi` is eq to `c + di` if `a` == `c` && `b` == `d`;
+- `audition` sum of complex numbers `a + bi` and `c +di` is `(a + c) + (b +d)i`;
+- `multiplication` the product of the complex numbers `a + bi` and `c + di` is
+  `(ac - bd) + (ad + bd)i`
+- `division` the result of dividing `a + bi` by `c + di` is
+  `(ac + bd) / (c^2 + d^2) +((bc - ad) / (c^2 + d^2))`;
+- `conjugate` `a + bi` => `a - bi`;
+
+`C99` standart introduces support for complex numbers. `C11` is not obliged, it's 
+optional.
+
+guard: 
+
+```C
+#ifdef __STDC_NO_COMPLEX__
+  printf("Complex numbers are supported");
+  exit(1);
+#else
+  printf("Complex numbers are not supporterd");
+#endif
+```
+types in C: 
+
+`float _Complex` => stores complex number with real and imaginery part as type float.
+`double _Complex`, `long_double_Complex`,
+
+`float _Imaginery` => stores imaginery number as float
+`double _Imaginery`
+
+`_Complex` => keyword is like `_Bool` to avoid braking existing code.
+
+header `complex.h`
+
+Functions:
+
+`creal()` => returns the real part of number;
+`cimag()` => returns the imaginery part of the number;
+
+## Designated Initializers
+
+Allow for specifying of which element of `array`, `struct` or `union` are to be 
+initialized by the values following an array index or filed by name ( struct and union only)
+
+Useful for struct with large number of fields, to be used with 
+default elements set to values.
+
+```C
+int a[3] = { [1] = 23, [2] = 15 };
+/* or */
+int a[3] = { [1]23, [2]15 };
+/* range [first...last] = value */
+int a[] = { [0...10] = 1 };
+
+/* struct */
+struct point { int x, y; };
+
+struct point p = { .y = 2, .x = 3}; 
+/* or */
+struct point p = { .y: 2, .x: 3}; 
+/* or withoud specifying the fields */
+struct point p = { 2, 3 }; 
+/* with array of points */
+struct point p[3] = { [0].x = 3, [2].y = 3 };
+
+```
+
+## Type Qualifiers
+
+
+
 ## Compile
 
 Compiler generates intermediate object files for each source it compiles. 
