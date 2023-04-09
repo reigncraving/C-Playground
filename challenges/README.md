@@ -72,3 +72,25 @@ hint init arraay pointer to null.
 ## Challenge#6
 
 Complex Numbers calculations.
+
+## Challenge#7
+
+Write a program to Covert `Decimal` to `Binary` and another one to convert `Binary` to 
+`Decimal`
+
+## Challenge#8
+
+Write bitwise operators using program. The program needs to read 2 integesr form the user. Print the reuslts for;
+- `~` operator to each number; 
+- `&` ,`|`, `^`;
+- the `<<` and `>>` to a specific (one) number.
+- show the result as binary strings. ( d2b function).
+
+example;
+enter int: 10
+enter int: 11
+
+`~` => 10 (1010) --> -1011
+`~` => 11 (1011) --> -1100
+`&` => 10 (1010) and 11 (1011)--> 1010
+.....

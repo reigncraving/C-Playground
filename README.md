@@ -74,11 +74,12 @@ from another functions => local scope.
 
 ### placeholders
 
-`%lf` => long precision floating-point value (double)
-`%f`  => single precision floating-point value (float)
-`%i`  => (interger)
-`%zd` => size_t (unsigned long)
-`%c`  => char
+- `%c`   => char
+- `%i`   => interger
+- `%lld` => long long
+- `%lf`  => long precision floating-point value (double)
+- `%f`   => single precision floating-point value (float)
+- `%zd`  => size_t (unsigned long)
 
 ## Typedef
 
@@ -332,6 +333,158 @@ int * restrict ptr
 -`constancy`
 -`volatility`
 
+## Bit Manipulations
+
+### Bitwise operators
+
+`word` => two `bytes`
+
+bit manipulation is algorithmically minipulation bits of data shorter than a word.
+Bitwise manipulations are faster than calculations.
+
+fields of use:
+- low-level device control
+- error detection
+- correction algorithms
+- data compression
+- encryption algorithms
+- optimization
+
+C supports:
+
+- `&` - Binary `AND` operator copies bit if it exist in both operands
+- `|` - Binary `OR` operator copies a bit if it exist in either operand
+- `^` - Binary `XOR` operator copies a bit if it is set in one operand but not both.
+- `~` - Binary `Ones Compliment Operator` is unary and has the effect of `flipping`bits. `Bitwise Negation operator`.
+
+This operator operates on bits individually and not on values as compared to 
+logical operators (&&, ||, !).
+
+```C
+    /* bitwise operation: */
+  
+
+    /* Manual AND: if 1 and 1 => 1    */
+    /* if 0 and 1 => 0                */
+    /* 25 in binary: 0000000000011001 */
+    /* 77 in binary: 0000000001001101 */
+    /* ------------------------------ */
+    /*  9            0000000000001001 */
+
+    /* Manual OR: if there is 1 in either => 1 */
+    /* 147 in binary: 10010011        */
+    /* 61 in binary:  00111101        */
+    /* ------------------------------ */
+    /* 191            10111111        */
+
+    /* Manual XOR: if there is 1 in one but not both => 1 */
+    /* 147 in binary: 10010011        */
+    /* 61 in binary:  00111101        */
+    /* ------------------------------ */
+    /* 174            10101110        */
+
+    /* Comliment: flip the bits       */
+    /* 154 in binary: 10011010        */
+    /* ------------------------------ */
+    /* 174            01100101        */
+    /* in twos compilent eq -155:     */
+    /* 155 in binary  10011011 +1     */
+    /* take possive and add 1         */
+
+    short int w1;
+
+    w1 &= ~1;
+
+    /* w1 is ANDed with the correct value in any machine b/c the ones 
+    compliment of 1 is calculated and consist of as many leftmost bits as 
+    necessary to fill the size of an int (31 lefmost bits on 32-bit integer
+    sytem).*/
+   
+    short int temp = 0;
+    short int n1 = 10;
+    short int n2 = 12;
+
+    /* swap */
+    temp =  n1;
+    n1 = n2;
+    n2 = temp;
+
+    /* do not need temp variable */
+    n1 ^= n2;
+    n2 ^= n1;
+
+```
+### Shifting
+Aach of the shifting operators creates new value by shifting accordingly bits in a pattern indicated number of bits.
+
+- `<<` `left-shift` operator. Vacated (empty) bits are set to 0;
+- `>>` `right-shift` operator. Vacated (empty) bits are set to 0 if value is unsigned.
+
+```C
+    /* integer in most system is represented by 32 bits. */
+    int i = 1;
+    /* 0000 0000 0000 0000 0000 0000 0000 0001 */
+
+    int i1 = 3;
+    /* 0000 0000 0000 0000 0000 0000 0000 0011 */
+
+    int result = 0;
+
+    result = i1 << 1;
+    /* shift by one                            */
+    /* 0000 0000 0000 0000 0000 0000 0000 0110 */
+```
+
+### Bitmasks
+
+`Bitmask` is data that is used for bitwise operations, using a mask, multiple bits
+in a `Byte` can be set either on or off, or inverted from on to off, in a single
+bitwise operation. It can be used for state manage as 32 bit state management.
+
+- check if particular bit is set to on or off.
+- set bit on of off.
+- must be as wide as the bytes to mask.
+
+Turning bits off:
+
+```C
+int const MASK = 2; // 00000010
+int flags = 12; 
+
+flags = flags & MASK;
+
+/* This will make all of the bits of number to be set to 0, except for the 1 bit
+in the mask.*/
+
+```
+- any bit combined with `0` using `&` will yeild `0`, `1` will be unchained: 
+  1 & 1 => 1;
+  0 & 1 => 0;
+  0 & 0 => 0;
+
+
+Turning bits on:
+
+```C
+flags = flags | MASK;
+```
+sets number 1 in flags to 1 and leaves all the other bits unchanged.
+  any bit combined with 0 by `|` returns itself.
+  any bit combined with 1 by `|` returns 1.
+
+
+turning bits off using AND:
+
+```C
+flags = flags &~MASK;
+```
+- a 1 combined with any bit using `&` is the same bit. This leaves all bits other
+than 1 unchanged.
+
+
+### Bitfields
+
+
 ## Compile
 
 Compiler generates intermediate object files for each source it compiles. 
@@ -391,6 +544,7 @@ not know of each structure, function return types, arguments. There need to be
 a specification for the compiler to use.
 
 ## Make
+
 Make is a utility that specifies a list of files and their dependencies in a
 special file => `Makefile`
 
@@ -426,7 +580,9 @@ make
 Make  will compile each file individually and link in the end.
 
 ## debug
+
 `.vscode/launch.json` = script to laung debug on brake point in vscode using `gdb`
 
 ## C Coding Standard
+
 https://users.ece.cmu.edu/~eno/coding/CCodingStandard.html

@@ -26,7 +26,7 @@ if (( $# > 1 )); then
     echo -e "#<$SOURCES>"
     
     # compile all files:
-    gcc "$FILE_NAME".c $SOURCES -Wall -g -std=$C_STANDARD -o "$FILE_NAME".o
+    gcc "$FILE_NAME".c $SOURCES -Wall -g -std=$C_STANDARD -o "$FILE_NAME".o -lm
     echo -e "${BLUE}[run]\n${GREEN}"
     ./$FILE_NAME.o
 
@@ -35,7 +35,7 @@ else
     echo -e "${GREEN}> ${PURPLE}$1"
 
     FILE_NAME=$(echo "$1" | cut -f 1 -d '.')
-    gcc "$FILE_NAME".c -Wall -g -std=$C_STANDARD -o "$FILE_NAME".o
+    gcc "$FILE_NAME".c -Wall -g -std=$C_STANDARD -o "$FILE_NAME".o -lm
     echo -e "${BLUE}[run]\n${GREEN}"
     ./$FILE_NAME.o
 fi
