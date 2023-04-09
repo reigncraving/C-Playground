@@ -94,3 +94,19 @@ enter int: 11
 `~` => 11 (1011) --> -1100
 `&` => 10 (1010) and 11 (1011)--> 1010
 .....
+
+## Challenge#9
+
+Write a program that takes unput of any number from user and:
+- check if nth bit of the number is set(1) or not.
+- set the nth bit of a given number as 1.
+
+enter number: 10 (1010)
+enter nth bit to check(0-31): 2
+
+the 2 bit is set to 0
+
+Bit set successfully.
+
+Number before setting 2 bit: 10(in decimal)
+Number after setting 2 bit: 14(in decimal)

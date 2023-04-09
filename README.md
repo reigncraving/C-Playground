@@ -479,8 +479,94 @@ turning bits off using AND:
 flags = flags &~MASK;
 ```
 - a 1 combined with any bit using `&` is the same bit. This leaves all bits other
-than 1 unchanged.
+than 1 unchanged. A bit 0 combined with any but using `&` is 0,bit 1 is set to 0.
 
+Toggling bits with XOR:
+
+turning it on if it's off and turning it on if it's off.
+
+```C
+flags = flags ^ MASK;
+```
+
+Check a value of a bit:
+
+```C
+if ((flags & MASK) == MASK) {
+  puts ("True");
+}
+```
+
+### Pack Data:
+
+Flags of a state can be represented by turning on and off a single bit. 
+
+Two methods are available to pack this information together to make better use of memory
+(instead of using Boolean for exampe).
+
+- `Bit fields` - struct
+- `Bitwise operators` - variable
+
+#### using Bitwise operators: 
+
+Unsigned int / long varaible is used to hold the information, or a structure the
+same size as the unsigned int to hold the state.
+
+
+example:
+One integer variable could hold five different values:
+  - 3 flags (f1, f2, f3);
+  - type (integer) 1..255
+  - index (integer) 0..100_000
+
+```C
+unsigned int packed_data;
+```
+packed_data => 32 bits:
+
+```
+
+  3   1  1  1      8             18
+[000][0][0][0][00000000][000000000000000000]
+  |   |  |  |      |              |
+  |   f1 f2 f3    type           index
+unsused 
+```
+
+```C
+/* to set type field of packed_data to 8, when type field is 0*/
+int n = 8; 
+packed_data |= n << 18;
+
+/* make type field ot 0 */
+
+packed_data &=~(0xff << 18);
+
+/* Set the type field of packed_data to value contained in the eight low-order bits of n: */
+packed_data = (packed_data &~(0xff << 18)) | ((n & 0xff) << 18);
+
+```
+
+#### Reading values from bit fields:
+
+To read type field of above example: 
+
+```C
+n = (packed_data >> 18) & 0xff;
+```
+
+representing color values with unsigned long:
+
+```C
+#define BYTE_MASK 0xff
+
+unsigned long color = 0x002a162f;
+unsigned char blue, green, red;
+
+red = color & BYTE_MASK;
+green = (color >> 8) & BYTE_MASK;
+blue = (color >> 16) & BYTE_MASK;
+```
 
 ### Bitfields
 
