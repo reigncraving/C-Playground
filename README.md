@@ -339,7 +339,7 @@ int * restrict ptr
 
 `word` => two `bytes`
 
-bit manipulation is algorithmically minipulation bits of data shorter than a word.
+bit manipulation is algorithmically manipulation bits of data shorter than a `word`.
 Bitwise manipulations are faster than calculations.
 
 fields of use:
@@ -415,7 +415,8 @@ logical operators (&&, ||, !).
 
 ```
 ### Shifting
-Aach of the shifting operators creates new value by shifting accordingly bits in a pattern indicated number of bits.
+
+Each of the shifting operators creates new value by shifting accordingly bits in a pattern indicated number of bits.
 
 - `<<` `left-shift` operator. Vacated (empty) bits are set to 0;
 - `>>` `right-shift` operator. Vacated (empty) bits are set to 0 if value is unsigned.
@@ -502,7 +503,7 @@ if ((flags & MASK) == MASK) {
 Flags of a state can be represented by turning on and off a single bit. 
 
 Two methods are available to pack this information together to make better use of memory
-(instead of using Boolean for exampe).
+(instead of using Boolean for example).
 
 - `Bit fields` - struct
 - `Bitwise operators` - variable
@@ -569,6 +570,25 @@ blue = (color >> 16) & BYTE_MASK;
 ```
 
 ### Bitfields
+
+Use bitfields in a `struct`, and this fields will represent individual
+or group of bits in a value. A bit field allows for specifying the number of bits in which an int member of a structure is stored.
+It uses a special syntax for defining field of bits, and should use
+explicit declaration of int (singned or unsigned) to avoid hardware problems. It is declared by following and unsgined int member name with a colon `:`. Integer constant is defined after the colon and represents the width of the field (number of bits starts from 0). a `bitfield` is accesed as any other member of a structure.
+
+It is possible to define an unnamed bit field to be used for padding in the struct. 
+
+```C
+unsigned int : 1;
+```
+
+An unnamed bit field with 0 width is used to align the next
+bitfield on a new storage unit boundary.
+
+```C
+unsigned int : 0;
+
+`C99` and `C11` allow type `_Bool` as bit field.
 
 
 ## Compile

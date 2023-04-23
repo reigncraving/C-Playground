@@ -110,3 +110,36 @@ Bit set successfully.
 
 Number before setting 2 bit: 10(in decimal)
 Number after setting 2 bit: 14(in decimal)
+
+##  Challenge#10
+
+Bitfields with on screen box.
+
+Write a program that contains bitfields in onscreen box:
+- The box can be opaque or transparent.
+- Fill color is selected from palette of collorst: [black, red, green, yellow, blue, magenta, cyan, white].
+- A border can be shown or hidden.
+- Border color is selected from the same palette used for fill color.
+- Border can use one of three line stypes: [solid, dotted, dashed].
+
+Bit assign:
+- 1 bit for opaque or transparent.
+- 1 bit for border is shown or hidden.
+- 3 bits for 8 variants of colors.
+- 2 bit unit for 3 variants of border styles.
+- Total 10 bits.
+
+notes:
+- Padding to place the fill info on first bit.
+- Border info on second bit.
+- Colors usual representation is the left bit to represent blue intensity, the middle - green, and right bit red intensity.
+
+black:   000
+red:     001
+green:   010
+blue:    100
+yellow:  011
+magenta: 101
+cyan:    110
+white:   111 
+
