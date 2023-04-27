@@ -80,6 +80,7 @@ from another functions => local scope.
 - `%lf`  => long precision floating-point value (double)
 - `%f`   => single precision floating-point value (float)
 - `%zd`  => size_t (unsigned long)
+- `%s`   => string (null terminated, array of chars)
 
 ## Typedef
 
@@ -355,7 +356,7 @@ C supports:
 - `&` - Binary `AND` operator copies bit if it exist in both operands
 - `|` - Binary `OR` operator copies a bit if it exist in either operand
 - `^` - Binary `XOR` operator copies a bit if it is set in one operand but not both.
-- `~` - Binary `Ones Compliment Operator` is unary and has the effect of `flipping`bits. `Bitwise Negation operator`.
+- `~` - Binary `Ones Compliment Operator` is unary and has the effect of `flipping`bits. `Bitwise Negation operator`. (adds +1)
 
 This operator operates on bits individually and not on values as compared to 
 logical operators (&&, ||, !).
@@ -587,11 +588,161 @@ bitfield on a new storage unit boundary.
 
 ```C
 unsigned int : 0;
+```
 
 `C99` and `C11` allow type `_Bool` as bit field.
 
+## Advanced Control flows
 
-## Compile
+### Goto
+
+`goto` makes the program jump to a peticular line of code. To know where
+to jump a `label` is made with variable name conventions. The label need
+to be palced directlu before the statement to wich a new branch is to be
+made, and must appear in the same function as `goto`.
+
+syntax: 
+
+```C
+goto label;
+/*...*/
+label : statement
+```
+
+```C
+int test(void) {
+  goto print;
+  /*..*/
+  print: printf("Jumped here!");
+  /*...*/
+}
+
+```
+
+It is not considered as best practice, and and can make code hard to read.
+
+Useful usage is when a break is needed from nested loop:
+
+```C
+int i, j, k = 0;
+
+for(i = 0; i < 10; i++) {
+  for(i = 0; i < 10; i++) {
+    for(i = 0; i < 10; i++) {
+      /*...*/
+      if (condition) {
+        goto loop_break;
+      }
+       /*...*/ 
+    }
+  }
+}
+
+loop_break: 
+/*...*/ 
+```
+### Null statement:
+
+The `null statement` is expression with the expression missing;
+It does nothing it represents nothing. Often used in loops (for, while,do).
+
+C allows for use of `;`. 
+
+```C
+while (condition) 
+;
+
+for ( ;(c = getchar()) != EOF; putchar (c) );
+
+/* counts chars in input */
+for ( count = 0; getchar() != EOF; ++count ) 
+
+/* go to outer else */
+if (condition) {
+  if (condition) {
+    /*...*/ 
+    else
+    ;
+  else
+  /*...*/ 
+  }
+}
+
+```
+Without the null statement the compiler takes the next in line as body of the loop.
+That is why the null statement is needed.
+
+### Comma operator:
+
+`,` => lowest precedence in C, binary operator used in expresions. All operators in C produce valie,
+the value of comma operator is the rightmost expression.
+
+```C
+/* in a loop: */
+int sum+= arr[i], ++i;
+
+/* 1 is assigned to i, 3 is discarded*/
+int i(3, 1);
+
+for ( i = 0, j = 0; i < 10, i++, j++) { /*...*/ }
+
+char c, d;
+int x = 1, y = 3;
+
+```
+
+### setjmp and longjump:
+
+`setjmp()` and `longjump()` functions perform more complex control flow. Normal 
+flow in C consist of function calls and branching operators (if, while, do).
+
+These functions are mainly used as error handling, and recovery in C.
+- `setjmp` is like `try`, `begin`. Copies program counter, and the current pointer
+of the top of the `stack`.
+
+```C
+/* j saves current context, needs to be called first. */
+int setjmp(jmp_buf j);
+```
+- `longjmp` is used as `throw`. Invoked after `setjmp` and goes to the place where
+`setjmp` is saved, destroying the variable holding the state (`j`) and restores the
+process state, as it was.
+
+This is refered as `unwinding the stack`.
+
+```C
+#include <setjmp.h>
+#include <stdio.h>
+
+/* set the buffer */
+jmp_buf buffer;
+
+
+int main(void) {
+    /* on the return i is set to 22 in longjmp */
+    int i = setjmp(buffer);
+    printf("i=%d\n", i);
+
+    /* Exit not to cause infinite loop */
+    if ( i != 0 ) exit(0);
+
+    /* The return value of longjmp sets the i */
+    longjmp(buffer, 22);
+    printf("Test line, should not be printed\n");\
+
+    return 0;
+}
+```
+
+The `<setjmp.h>` header file is required to use `setjmp` or `longjmp`.
+Good use of this functions is to use them to bubble up error deeply nested in function
+calls to a upper level function, that will handle it. It's like `goto` but unlike it 
+it, it  can be used between functions and files.
+
+
+
+
+## Compile:
 
 Compiler generates intermediate object files for each source it compiles. 
 (file.o for windows file.obj)
