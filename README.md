@@ -18,7 +18,7 @@ It is used to define local variables that should be stored in a register,
 instead of RAM. This make the `Register` much faster than normal variables. It 
 is `only` used with local variables.
 
-  Good use of the `Register storage class` is when a variable gets used all the0 
+  Good use of the `Register storage class` is when a variable gets used all the
   time in a program, and this will make it even faster. But this is a 
   compiler's choice whether to store marked variable, and some time the 
   compiler puts there variables for optimization automaticaly.
@@ -741,6 +741,36 @@ it, it  can be used between functions and files.
 
 ## IO
 
+Some of the defined functions inside `#<stdio.h>` header:
+
+**Char functions:**
+
+- `getc` reads form file stream and return single char.
+- `getchar` reads only form `stdin`, returns single char, no arguments (void).
+- `fgetc` reads from file pointer.
+- `ungetc`
+- `putc`
+- `putchar`
+- `fputc`
+
+**String functions**
+
+- gets
+- fgets
+- puts
+- fputs
+- getline
+
+**Formating**
+
+- sprint
+- fprint
+- fflush
+- scanf
+- fscanf
+- sscanf
+
+When `C` program is executed `stdin`, `stdout`, and `stderr` files are loaded, all of them are normally associated with terminal.
 
 
 ## Compile:
