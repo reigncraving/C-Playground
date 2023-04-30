@@ -143,3 +143,18 @@ magenta: 101
 cyan:    110
 white:   111 
 
+##  Challenge#11
+
+Write a C program that uses `setjmp` and `longjmp` funtions to handle uncoverable program error.
+- When error is raised, give back control to main input loop, and start over.
+- Create function `error_recovery` that prints error message, and ues `longjmp` to transfer control.
+- Main function should have forever loop with 
+`setjmp`.
+- Dummy error for error_recovery.
+
+## Challenge#12
+
+Use `goto` statement to draw a asterix tree:
+
+
+
