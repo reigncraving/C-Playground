@@ -156,5 +156,20 @@ Write a C program that uses `setjmp` and `longjmp` funtions to handle uncoverabl
 
 Use `goto` statement to draw a asterix tree:
 
+## Challenge#13
 
+Chalenges to use different `io` char function.
 
+* Write a program in C to count the numbers of words and characters in a file, 
+or input.
+
+this program can take zero command line arguments or one command line argument.
+    - if arg => name of file
+    - if no arg => use stdin. 
+
+* Write a program in C to uppercase to downcase and vice versa.
+    - if arg => name of file
+    - if no arg => use stdin. 
+    - use temp file to store the converted char.
+    - rename temp file to original file.
+    - use `isupper(ch)`, `tolower`, `toupper`.

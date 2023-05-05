@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 
 /* 
 * Functions getting file pointer, and returning int.
@@ -6,6 +7,7 @@
 *
 * int getc(FILE *stream)
 */
+
 
 int main(void) {
     /* init to null character: 0 terminated */
@@ -45,6 +47,39 @@ int main(void) {
    /* read a file: int fgetc(FILE *fp) */
 
    /* check if file exist: if (fp == NULL) { return 1; }*/
+
+    FILE *fp = fopen("./io/char/test_file.txt", "r");
+    char c;
+
+    if (fp == NULL ) {
+        printf("could not open the file.");
+        return 1;
+    }
+
+    printf("Reading file...");
+
+    while (1) {
+        c = fgetc(fp);
+        if (c == EOF) {
+            break;
+        }
+        printf("%c", c);
+    }
+    printf("\n");
+    fclose(fp);
+
+    /* fgetc */
+
+    printf("Enter as much spaces as wanted, before a char to be returned.\n");
+    /* function to ignores spaces from io stream */
+    char chnew = 0;
+
+    /* semicolon is used to read as long as there is space.*/
+    while (isspace(chnew = (char)getchar()));
+        /* put back the non spoace char. */
+        ungetc(chnew, stdin);
+
+    printf("non space char: %c\n", chnew);
 
     return 0;
 }

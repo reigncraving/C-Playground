@@ -644,7 +644,7 @@ loop_break:
 ### Null statement:
 
 The `null statement` is expression with the expression missing;
-It does nothing it represents nothing. Often used in loops (for, while,do).
+It does nothing it represents nothing. Often used in loops (for, while, do).
 
 C allows for use of `;`. 
 
@@ -745,30 +745,58 @@ Some of the defined functions inside `#<stdio.h>` header:
 
 **Char functions:**
 
+***Note: `stdin` and `stdout` are also files.***
+
 - `getc` reads form file stream and return single char.
 - `getchar` reads only form `stdin`, returns single char, no arguments (void).
-- `fgetc` reads from file pointer.
-- `ungetc`
-- `putc`
-- `putchar`
-- `fputc`
+- `fgetc` reads from file pointer. Used with `FILE` pointers.
+- `ungetc` put a character back to io stream. returns `int` or `EOF`
+- `putc` write single char to file, uses `FILE` pointer in append mode.
+- `putchar` writes only to `stdout`. Alias to putc(__c, stdout).
+- `fputc` writes single character at a time to a file.
 
 **String functions**
 
-- gets
-- fgets
-- puts
-- fputs
-- getline
+- `gets` reads a line from standard input into a buffer. Returns `string` | `NULL`
+  This function is deprecated it's removed from `C11`, use `fgets` or `getchar` instead.
+- `fgets` reads entire lines form file/stream. Uses `FILE` or `stdin`. it is also
+  deprecated due to not knowing a null character is included in string. Only use if the
+  stream does not contain null character, otherwise string will be terminated on that
+  characterd. Use `getline` instead.
+- `fputs`
+- `getline` - reads a string from text. The other functions my ge considered
+  unreliable (gets, fgets and scanf). Includes nextline character read. Usses
+  `relloc` to avoid sortage of space.
+
+  ```C
+
+  /* getline signature:
+  *
+  * @param char **buffer => pointer to allocated block with mallic or calloc
+  * @return -1 if error, otherwise returns number of characters read:
+  * including newline, but not null terminated character.
+  *
+  */
+  ssize_t getline(char **buffer, size_t *size, FILE, *stream);
+
+  #include <stdio.h>
+  #include <string.h> 
+
+  char *buffer = NULL;
+  size_t buffer_size = 64;
+  
+  buffer = (char *)malloc(buffer_size * sizeof(char));
+
+  ```
 
 **Formating**
 
-- sprint
-- fprint
-- fflush
-- scanf
-- fscanf
-- sscanf
+- `sprint`
+- `fprint`
+- `fflush`
+- `scanf`
+- `fscanf`
+- `sscanf`
 
 When `C` program is executed `stdin`, `stdout`, and `stderr` files are loaded, all of them are normally associated with terminal.
 
