@@ -173,3 +173,22 @@ this program can take zero command line arguments or one command line argument.
     - use temp file to store the converted char.
     - rename temp file to original file.
     - use `isupper(ch)`, `tolower`, `toupper`.
+
+## Challenge#14
+
+Write a C program that takes two command line arguments:
+- char
+- filename
+
+Print only line in a file that contains the provided as input character.
+- define lines in file by `'\n'`
+- Asume that no line is more that 256 chars.
+
+Require to use `fgets()` or `getline()` for reading of the file.
+-use `puts` for display.
+
+Hello there,
+nice to meet you,
+have a great day!
+
+example run: `./a.out n test.out` => `nice to meet you,`

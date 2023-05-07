@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 int main(int argc,char * argv[])  {
-   FILE * fp = NULL;
+   FILE *fp = NULL;
    char ch = '\0';
-   int wrd=1,charctr=1;
+   int wrd = 1,charctr = 1;
 
    if (argc == 1)
      fp = stdin;
@@ -19,9 +19,9 @@ int main(int argc,char * argv[])  {
       exit(EXIT_FAILURE);
    }
 
-   ch=getc(fp);
+   ch = getc(fp);
 
-   while(ch!=EOF)    {
+   while(ch != EOF)    {
      if(ch==' '||ch=='\n') {
         wrd++;
      }
@@ -29,7 +29,7 @@ int main(int argc,char * argv[])  {
        charctr++;
      }
 
-     ch=getc(fp);
+     ch = getc(fp);
    }
 
    printf("\n The number of words in the file are : %d\n",wrd);

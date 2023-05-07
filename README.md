@@ -12,7 +12,7 @@ C provides 3 storage classes:
 3. Extern
 4. Static
 
-- `Register` is small set of data, taking place that is part of the  CPU
+- `Register` is small set of data, taking place that is part of the CPU.
 It can hold instructions, storage address, and any kind of data.
 It is used to define local variables that should be stored in a register,
 instead of RAM. This make the `Register` much faster than normal variables. It 
@@ -34,13 +34,13 @@ is `only` used with local variables.
 
 - `External variables` - Functions in different files can communicate through
 them => extension of the concept for `global variables`. `External Variables` can
-be changed by a function in separate file => /mnt/e/C/C-Playground/project1a 
+be changed by a function in separate file => /mnt/e/C/C-Playground/project1 a 
 globally defined variable from another file. Prefixed with `extern`. To use it
-must be declared as signature, mustnot be initialized. Variable needs to be
+must be declared as signature, must not be initialized. Variable needs to be
 global to be used as extern.
 
   ```
-    <file1 int n = 3> <== <file2 extern int n;>
+    <file1 int n = 3;> <== <file2 extern int n;>
   ```
 
   **file2 is the one accessing it, so the extern is palced there.
@@ -78,8 +78,11 @@ from another functions => local scope.
 - `%i`   => interger
 - `%lld` => long long
 - `%lf`  => long precision floating-point value (double)
+- `%lu`  => unsigned long 
+- `%llu` => unsigned long long
 - `%f`   => single precision floating-point value (float)
 - `%zd`  => size_t (unsigned long)
+- `%zu`  => size_t 
 - `%s`   => string (null terminated, array of chars)
 
 ## Typedef
@@ -87,9 +90,12 @@ from another functions => local scope.
 Makes the program more readable by defining own name for exising data type. 
 `typedef int Number;`, `typedef int* i_pointer;`
 
-This will make the name Number to be equal to `int` type => Creating an `alias`. The compiler will treat this as normal integer, this makes the program more readable.
+This will make the name Number to be equal to `int` type => Creating an `alias`. 
+The compiler will treat this as normal integer, this makes the program more readable.
 
-Good example use is to cover the 4-byte system integer, some system use `long` for example and typdef can be changed once in the program based on the system and will update all instances.
+Good example use is to cover the 4-byte system integer, some system use `long` for 
+example and typdef can be changed once in the program based on the system and will 
+update all instances.
 
 The `typedef` is handled by the `compiler`.
 
@@ -99,10 +105,13 @@ common practices:
 
 typedef vs define
 
-typedef is handle by the compiler and is good for typecheking, but define could replace typedef as well, depends on the case. The precompiler is good for cheking if header already exists before defining a constant. 
-`#define` will replace every instance of the keyword in the file were as `typedef` is more of a alias.
+typedef is handle by the compiler and is good for typecheking, but define could 
+replace typedef as well, depends on the case. The precompiler is good for cheking 
+if header already exists before defining a constant. `#define` will replace every 
+instance of the keyword in the file were as `typedef` is more of a alias.
 
-The advantage of using typedef with pointers is that we can declare any number of pointers in a single statement
+The advantage of using typedef with pointers is that we can declare any number 
+of pointers in a single statement
 
 ```C
 typedef int* int_pointer;
@@ -111,7 +120,8 @@ int_pointer = a, b, c;
 
 ## Define (Preprocessor)
 
-`Define` statement (constants) is a preprocessor directive, ( like all other preprocessor directives ) begins with `#`.
+`Define` statement (constants) is a preprocessor directive, ( like all other 
+preprocessor directives ) begins with `#`.
  - Can be preceded by spaces and tabs.
  - Allows for space between `#` and following part.
 
@@ -126,13 +136,16 @@ example of defining a constant:
 ```C
 #define OK 1
 ```
-Anywhere in the code the name `OK` will return 1. Preprocessor makes replacement of all calls to the constant. Easy to maintain as one place to change the defined value.
+Anywhere in the code the name `OK` will return 1. Preprocessor makes replacement 
+of all calls to the constant. Easy to maintain as one place to change the defined 
+value.
 
 another way of creating constants is by using the keywokd `consts` on variables.
 
 ## Variable Length Array (VLA)
 
-Array taking expression when created, still fixed in size. It means you can use variable when specifying `array dimentions` when first creating the array.
+Array taking expression when created, still fixed in size. It means you can use 
+variable when specifying `array dimentions` when first creating the array.
 
 `size_t` - data type return from `sizeof` operator.
 
@@ -249,7 +262,8 @@ Functions:
 ## Designated Initializers
 
 Allow for specifying of which element of `array`, `struct` or `union` are to be 
-initialized by the values following an array index or filed by name ( struct and union only)
+initialized by the values following an array index or filed by name 
+( struct and union only)
 
 Useful for struct with large number of fields, to be used with 
 default elements set to values.
@@ -279,7 +293,8 @@ struct point p[3] = { [0].x = 3, [2].y = 3 };
 Type qualifiers are used infront of variable to tell the compiler more about the
 intended use of the variable.
 
-- `const` - variable value won't be change through program life time. The     compiler will place that variable into read-only memory(compiler optimization).
+- `const` - variable value won't be change through program life time. The 
+compiler will place that variable into read-only memory(compiler optimization).
 
 ```C
 /* with pointers :*/
@@ -296,14 +311,16 @@ char *strcat(char *restict s1, const char * restrict s2); // second param won't 
 /* in header files const can get included in differen files.*/
 static const double pi = 3.14159; // with static each file gets copy of the data.
 ```
-define vs const. #define is preprocessor directive and it is not scope controlled,
-where const is a as regular variable, it can be typecast, has scope ( function scope, global scope).
-the use of `const` also allow for type checking by the compiler (vs precompiler).
+`define` vs `const`. #define is preprocessor directive and it is not scope controlled,
+where const is a as regular variable, it can be typecast, has scope 
+( function scope, global scope).the use of `const` also allow for type checking 
+by the compiler (vs precompiler).
 
-- `volatile` - (compiler optimization) specifies to compiler that this variable will change it's value.
-opposite to `const`. This will optimize the compiler not to cache the value => Not to optimize it.
-Used on embeded systems, or where resources are scarse. Using `volatile` tells the
-compiler not to optimize for the use of `registry` as faster memory (caching).
+- `volatile` - (compiler optimization) specifies to compiler that this variable 
+will change it's value.opposite to `const`. This will optimize the compiler not 
+to cache the value => Not to optimize it.Used on embeded systems, or where 
+resources are scarse. Using `volatile` tells thecompiler not to optimize for 
+the use of `registry` as faster memory (caching).
 
 Three types od variable should use `volatile`:
  1. memory-mapped peripheral registers
@@ -356,7 +373,8 @@ C supports:
 - `&` - Binary `AND` operator copies bit if it exist in both operands
 - `|` - Binary `OR` operator copies a bit if it exist in either operand
 - `^` - Binary `XOR` operator copies a bit if it is set in one operand but not both.
-- `~` - Binary `Ones Compliment Operator` is unary and has the effect of `flipping`bits. `Bitwise Negation operator`. (adds +1)
+- `~` - Binary `Ones Compliment Operator` is unary and has the effect of 
+`flipping`bits. `Bitwise Negation operator`. (adds +1)
 
 This operator operates on bits individually and not on values as compared to 
 logical operators (&&, ||, !).
@@ -417,7 +435,8 @@ logical operators (&&, ||, !).
 ```
 ### Shifting
 
-Each of the shifting operators creates new value by shifting accordingly bits in a pattern indicated number of bits.
+Each of the shifting operators creates new value by shifting accordingly bits in 
+a pattern indicated number of bits.
 
 - `<<` `left-shift` operator. Vacated (empty) bits are set to 0;
 - `>>` `right-shift` operator. Vacated (empty) bits are set to 0 if value is unsigned.
@@ -503,8 +522,8 @@ if ((flags & MASK) == MASK) {
 
 Flags of a state can be represented by turning on and off a single bit. 
 
-Two methods are available to pack this information together to make better use of memory
-(instead of using Boolean for example).
+Two methods are available to pack this information together to make better use 
+of memory (instead of using Boolean for example).
 
 - `Bit fields` - struct
 - `Bitwise operators` - variable
@@ -573,9 +592,13 @@ blue = (color >> 16) & BYTE_MASK;
 ### Bitfields
 
 Use bitfields in a `struct`, and this fields will represent individual
-or group of bits in a value. A bit field allows for specifying the number of bits in which an int member of a structure is stored.
-It uses a special syntax for defining field of bits, and should use
-explicit declaration of int (singned or unsigned) to avoid hardware problems. It is declared by following and unsgined int member name with a colon `:`. Integer constant is defined after the colon and represents the width of the field (number of bits starts from 0). a `bitfield` is accesed as any other member of a structure.
+or group of bits in a value. A bit field allows for specifying the number of bits 
+in which an int member of a structure is stored.It uses a special syntax for defining 
+field of bits, and should useexplicit declaration of int (singned or unsigned) 
+to avoid hardware problems. It is declared by following and unsgined int member 
+name with a colon `:`. Integer constant is defined after the colon and represents 
+the width of the field (number of bits starts from 0). a `bitfield` is accesed as 
+any other member of a structure.
 
 It is possible to define an unnamed bit field to be used for padding in the struct. 
 
@@ -674,8 +697,8 @@ That is why the null statement is needed.
 
 ### Comma operator:
 
-`,` => lowest precedence in C, binary operator used in expresions. All operators in C produce valie,
-the value of comma operator is the rightmost expression.
+`,` => lowest precedence in C, binary operator used in expresions. All operators 
+in C produce valie,the value of comma operator is the rightmost expression.
 
 ```C
 /* in a loop: */
@@ -747,9 +770,14 @@ Some of the defined functions inside `#<stdio.h>` header:
 
 ***Note: `stdin` and `stdout` are also files.***
 
+input:
+
 - `getc` reads form file stream and return single char.
 - `getchar` reads only form `stdin`, returns single char, no arguments (void).
 - `fgetc` reads from file pointer. Used with `FILE` pointers.
+
+output: 
+
 - `ungetc` put a character back to io stream. returns `int` or `EOF`
 - `putc` write single char to file, uses `FILE` pointer in append mode.
 - `putchar` writes only to `stdout`. Alias to putc(__c, stdout).
@@ -757,22 +785,23 @@ Some of the defined functions inside `#<stdio.h>` header:
 
 **String functions**
 
+input:
+
 - `gets` reads a line from standard input into a buffer. Returns `string` | `NULL`
   This function is deprecated it's removed from `C11`, use `fgets` or `getchar` instead.
 - `fgets` reads entire lines form file/stream. Uses `FILE` or `stdin`. it is also
   deprecated due to not knowing a null character is included in string. Only use if the
   stream does not contain null character, otherwise string will be terminated on that
   characterd. Use `getline` instead.
-- `fputs`
-- `getline` - reads a string from text. The other functions my ge considered
-  unreliable (gets, fgets and scanf). Includes nextline character read. Usses
-  `relloc` to avoid sortage of space.
+- `getline` - reads a string from text. The other functions may be considered
+  unreliable (gets, fgets and scanf). Includes nextline character read. Uses
+  `relloc` to avoid shortage of space.
 
   ```C
 
   /* getline signature:
   *
-  * @param char **buffer => pointer to allocated block with mallic or calloc
+  * @param char **buffer => pointer to allocated block with malloc or calloc
   * @return -1 if error, otherwise returns number of characters read:
   * including newline, but not null terminated character.
   *
@@ -784,10 +813,24 @@ Some of the defined functions inside `#<stdio.h>` header:
 
   char *buffer = NULL;
   size_t buffer_size = 64;
+  size_t string; 
   
   buffer = (char *)malloc(buffer_size * sizeof(char));
+  /* string gets the size, buffer the string input */
+  string = getline(&buffer, &buffer_size, stdin);
 
   ```
+
+  output:
+
+  - `puts` writes a line to the output screen, with automatically apending
+  new line char. 
+  Difference between `prinf` and `puts` is that when using `printf` the argument
+  is treated as formatting string. The output between both functions is to be the
+  same, if the string does not have any controll charactes(`%`). Use it if formating
+  is not required.
+  - `fputs` similiar to `fputc` wirtes n chars to file. Returns EOF on eror, and
+  do not adds new line.
 
 **Formating**
 
@@ -798,7 +841,8 @@ Some of the defined functions inside `#<stdio.h>` header:
 - `fscanf`
 - `sscanf`
 
-When `C` program is executed `stdin`, `stdout`, and `stderr` files are loaded, all of them are normally associated with terminal.
+When `C` program is executed `stdin`, `stdout`, and `stderr` files are loaded, 
+all of them are normally associated with terminal.
 
 
 ## Compile:

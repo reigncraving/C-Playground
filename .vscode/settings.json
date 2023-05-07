@@ -2,6 +2,11 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "complex.h": "c",
-        "cctype": "c"
+        "cctype": "c",
+        "*.tcc": "c",
+        "string": "c",
+        "istream": "c",
+        "streambuf": "c",
+        "stdlib.h": "c"
     }
 }
