@@ -192,3 +192,12 @@ nice to meet you,
 have a great day!
 
 example run: `./a.out n test.out` => `nice to meet you,`
+
+# Challenge#15
+
+Write a program that takes as input:
+- a set of numbers from a file 
+and write even, odd or prime numbers to:
+- standart output.
+
+permited fscanf or (fgets and sscanf).

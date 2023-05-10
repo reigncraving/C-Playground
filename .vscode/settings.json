@@ -7,6 +7,7 @@
         "string": "c",
         "istream": "c",
         "streambuf": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "string.h": "c"
     }
 }

@@ -5,7 +5,7 @@
 #define BUF 256
 
 int has_ch(char ch, const char * line);
-int find_and_print_line(const char *filepath, const char *findchar);
+int find_and_print_line(const char *filepath, const char findchar);
 
 /*
  * Finds and prints the line containig a char if mathc is found
@@ -13,7 +13,7 @@ int find_and_print_line(const char *filepath, const char *findchar);
  *  @param filepath [const char *] file to read.
  *  @param findchar [const char *] char to look for.
  */
-int find_and_print_line(const char *filepath, const char *findchar) {    
+int find_and_print_line(const char *filepath, const char findchar) {    
     FILE *fileptr = NULL;
     fileptr = fopen(filepath, "r");
     
@@ -22,15 +22,17 @@ int find_and_print_line(const char *filepath, const char *findchar) {
         exit(EXIT_FAILURE);
     }
 
-    size_t buffersize = BUF;
-    char b[buffersize];
+    char b[BUF];
     char *line = b;
+    size_t buffersize = BUF;
     size_t read;
 
-    while((read = getline(&line, &buffersize, fileptr)) != NULL) {
+    while((read = getline(&line, &buffersize, fileptr)) != EOF) {
 
-        if ((has_ch(findchar, line)) { 
-            fputs("found!");
+        if ((has_ch(findchar, line))) { 
+            fputs(line,stdout);
+            fputs("\n", stdout);           
+        
         }
     }
 
@@ -47,7 +49,7 @@ int find_and_print_line(const char *filepath, const char *findchar) {
  *  @param ch [char]
  *  @param lin [const char *]
  */
-int has_ch(char ch, const char *line) {
+int has_ch(const char ch, const char *line) {
     while(*line)
         if(ch == *line++)
             return 1;
@@ -58,7 +60,7 @@ int has_ch(char ch, const char *line) {
 
 int main(const int argc, const char *argv[])  {
     if(argc == 3) {
-        const char *findchar = argv[1][0];
+        const char findchar = argv[1][0];
         const char *filepath = argv[2];
 
         find_and_print_line(filepath, findchar);

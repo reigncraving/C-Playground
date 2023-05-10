@@ -834,12 +834,32 @@ input:
 
 **Formating**
 
-- `sprint`
-- `fprint`
-- `fflush`
-- `scanf`
-- `fscanf`
-- `sscanf`
+- `sprintf` (string print formated) used to write formated output to a string.
+  When used it combines several variables into character array (string).
+  Instead of writing to file, the output is stored into char buffer. Terminated 
+  with `"\0"` character. Buffer size needs to be large enought for the contained
+  string, otherwise it will overflow. This function is considered not safe, because
+  it does not checks the size of the buffer to which it writes.
+
+  ```C
+  /* sig: int sprintf(char *string, const char *format, ...)*/
+  sprintf(string, "%d %c %f", v1, v2, v3);
+  ```
+- `fprintf`same operations as `sprintf`but on file, take FILE pointer as argument
+  
+  ```C
+  fprintf(out, "Print a number %d\n", 123);
+  ```
+  `fpintf` could be used to write to `stderr` => `sprintf(stderr, "Error message");`
+  This standard way of writing error messages.
+- `fflush` Used to clean the a file or buffer, making any unwriten output to be
+   sent to the ouput file (flushing).
+- `fscanf` Same as `scanf`but used on file, used to read formated input form file.
+- `sscanf` Read formated data from string. Used together: `fgets` + `sscanf`.
+    ```C
+    char *str = "John Doe 33";
+    ret = sscanf(str, "%s%s%d",firstname, lastname, age);
+    ```
 
 When `C` program is executed `stdin`, `stdout`, and `stderr` files are loaded, 
 all of them are normally associated with terminal.
