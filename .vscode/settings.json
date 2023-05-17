@@ -10,6 +10,7 @@
         "stdlib.h": "c",
         "string.h": "c",
         "even_or_odd.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "functional": "c"
     }
 }

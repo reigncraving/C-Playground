@@ -854,7 +854,7 @@ input:
   This standard way of writing error messages.
 - `fflush` Used to clean the a file or buffer, making any unwriten output to be
    sent to the ouput file (flushing).
-- `fscanf` Same as `scanf`but used on file, used to read formated input form file.
+- `fscanf` Same as `sscanf`but used on file, used to read formated input form file.
 - `sscanf` Read formated data from string. Used together: `fgets` + `sscanf`.
     ```C
     char *str = "John Doe 33";
