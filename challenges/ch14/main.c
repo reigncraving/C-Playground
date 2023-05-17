@@ -17,17 +17,18 @@ int find_and_print_line(const char *filepath, const char findchar) {
     FILE *fileptr = NULL;
     fileptr = fopen(filepath, "r");
     
-    if(fileptr == NULL) {
+    if (fileptr == NULL) {
         puts("Cannot open file.");
         exit(EXIT_FAILURE);
     }
+
 
     char b[BUF];
     char *line = b;
     size_t buffersize = BUF;
     size_t read;
 
-    while((read = getline(&line, &buffersize, fileptr)) != EOF) {
+    while ((read = getline(&line, &buffersize, fileptr)) != EOF) {
 
         if ((has_ch(findchar, line))) { 
             fputs(line,stdout);
@@ -50,8 +51,8 @@ int find_and_print_line(const char *filepath, const char findchar) {
  *  @param lin [const char *]
  */
 int has_ch(const char ch, const char *line) {
-    while(*line)
-        if(ch == *line++)
+    while (*line)
+        if (ch == *line++)
             return 1;
 
     return 0;
@@ -59,14 +60,14 @@ int has_ch(const char ch, const char *line) {
 
 
 int main(const int argc, const char *argv[])  {
-    if(argc == 3) {
+    if (argc == 3) {
         const char findchar = argv[1][0];
         const char *filepath = argv[2];
 
         find_and_print_line(filepath, findchar);
        
         return(EXIT_SUCCESS);
-    } else if(argc > 3) {
+    } else if (argc > 3) {
         puts("Too many arguments!");
         exit(EXIT_FAILURE);
     } else {

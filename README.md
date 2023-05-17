@@ -864,6 +864,86 @@ input:
 When `C` program is executed `stdin`, `stdout`, and `stderr` files are loaded, 
 all of them are normally associated with terminal.
 
+## Advanced Functions
+
+### Variadic function
+`Variadic function` is when function has unknown number or arguments. Good 
+exaple is `printf` it takes formated string as first argument and as many arguments
+afterwards as being passed per format specifier.
+
+there are two types of arguments:
+- required arguments - at least one is required and order is important.
+- optional arguments - listed after the reqiored arguments.
+
+Common practice dicatates to have an optional arguments counter in VA funtion.
+`stdarg.h` provides ready macros to use for that purpose.
+
+macros:
+-`va_list` list of optional parameters, holds the parameters corresponding to
+ellipsis part of the parameter list.
+-`va_start` connects argument list with argument pointer. Takes list as `va_list`
+argument and second parameter is the fixed parameter. 
+-`va_arg` fetch current argument connected to the list. The type of the read
+argument must be known.
+-`va_end` stop using the list, cleanup.
+-`va_copy` save current location on list.
+
+
+Step to crate VA function:
+- Provide function prototype using `elipsis` (...)
+
+```C
+void func(int i, ...);
+void func2(const char *string, int num, ...)
+```
+
+- Create a `va_list` type variable in the function defenition, and copu the
+argument list ot the `va_list` using `va_start`.
+
+```C
+int func(double v1, doble v2, ...){
+    /* pointer for variable agruments list */
+    va_list ptrarg;
+    /* ... */
+
+    /* 
+    * sets the variable ptrarg to point to the first variable argument.
+    * type is still unknown. 
+    * per specification v2, is the last required (mandatory) argument.
+    */
+    va_start(ptrarg, v2);
+    /* ... */
+}
+```
+
+- Access the content of the argument list using `va_arg`.
+  takes two arguments => va_list `variable type` and `type name`.
+  each time this is called it pops the arguments out of the list.
+  The `variable type` specifies the return type of the function.
+
+
+- Cleaning up using `va_end` as last step. Resets the ap pointer to `NULL`.
+
+  ```C
+
+  int func(int arg, ...) {
+     /* declare the object to point to arguments: */
+    va_list ap;
+    /* inits the argument list: */
+    va_start(ap, arg);
+    /* retrieve optional arg: */
+    int first_entry = va_arg(ap, int);
+    int next_entry = va_arg(ap, int);
+    /* cleaning up */
+    va_end(ap);
+  }
+  ```
+
+### Recursion
+
+### Inline function
+
+### No return function
 
 ## Compile:
 
